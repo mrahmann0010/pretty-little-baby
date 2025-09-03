@@ -1,24 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      
+      {/* For TSX uncomment the commented types below */}
+      <div className="grid grid-flow-col gap-5 text-center auto-cols-max">
+        <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+          <span className="countdown font-mono text-5xl">
+            <span style={{"--value":15} /* as React.CSSProperties */ } aria-live="polite" aria-label={counter}>15</span>
+          </span>
+          days
+        </div>
+        <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+          <span className="countdown font-mono text-5xl">
+            <span style={{"--value":10} /* as React.CSSProperties */ } aria-live="polite" aria-label={counter}>10</span>
+          </span>
+          hours
+        </div>
+        <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+          <span className="countdown font-mono text-5xl">
+            <span style={{"--value":24} /* as React.CSSProperties */ } aria-live="polite" aria-label={counter}>24</span>
+          </span>
+          min
+        </div>
+        <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+          <span className="countdown font-mono text-5xl">
+            <span style={{"--value":59} /* as React.CSSProperties */ } aria-live="polite" aria-label={counter}>59</span>
+          </span>
+          sec
+        </div>
+      </div>
+    
+    </>
   );
 }
 
