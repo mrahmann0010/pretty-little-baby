@@ -5,25 +5,18 @@ import ThirdPage from "./utils/ThirdPage";
 
 function App() {
   const [currentPage, setCurrentPage] = useState(0); // 0 = first page
-const unlockDate = new Date("2025-09-05T22:58:00"); // September 5, 2025, 10:58 PM
-
   let scrollTimeout = null;
 
+  // Handle scroll
   const handleScroll = (e) => {
     if (scrollTimeout) return;
     scrollTimeout = setTimeout(() => {
       scrollTimeout = null;
     }, 800);
 
-    const now = new Date();
-    const canGoNext = now >= unlockDate; // only for unlocking page 1
-
     if (e.deltaY > 0) {
       // scroll down
-      setCurrentPage((prev) => {
-        if (prev === 0 && !canGoNext) return 0; // can't go to page 1 yet
-        return Math.min(prev + 1, 2); // max 2 pages
-      });
+      setCurrentPage((prev) => Math.min(prev + 1, 2)); // max 2
     } else if (e.deltaY < 0) {
       // scroll up
       setCurrentPage((prev) => Math.max(prev - 1, 0));
@@ -42,16 +35,10 @@ const unlockDate = new Date("2025-09-05T22:58:00"); // September 5, 2025, 10:58 
       const touchEndY = e.changedTouches[0].clientY;
       const delta = touchStartY - touchEndY;
 
-      const now = new Date();
-      const canGoNext = now >= unlockDate;
-
       if (Math.abs(delta) > 50) {
         if (delta > 0) {
           // swipe up
-          setCurrentPage((prev) => {
-            if (prev === 0 && !canGoNext) return 0; // can't go to page 1 yet
-            return Math.min(prev + 1, 2);
-          });
+          setCurrentPage((prev) => Math.min(prev + 1, 2));
         } else {
           // swipe down
           setCurrentPage((prev) => Math.max(prev - 1, 0));
@@ -81,4 +68,3 @@ const unlockDate = new Date("2025-09-05T22:58:00"); // September 5, 2025, 10:58 
 }
 
 export default App;
-
