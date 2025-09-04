@@ -3,3 +3,13 @@
 @tailwind utilities;
 
 @plugin "daisyui";
+
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600;700&display=swap');
+
+.font-great-vibes {
+  font-family: 'Great Vibes', cursive;
+}
+
+.font-poppins {
+  font-family: 'Poppins', sans-serif;
+}

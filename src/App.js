@@ -1,39 +1,68 @@
+import { useState, useEffect } from "react";
+import CountDownSec from "./FirstPageWithCountDown";
+import SecondPage from "./utils/SecondPage";
 
 
 function App() {
+
+
+    const [currentPage, setCurrentPage] = useState(0); // 0 = first page
+
+  let scrollTimeout = null;
+
+  const handleScroll = (e) => {
+    // throttle scroll events
+    if (scrollTimeout) return;
+    scrollTimeout = setTimeout(() => {
+      scrollTimeout = null;
+    }, 800); // 800ms cooldown between page changes
+
+    if (e.deltaY > 0) {
+      // scroll down
+      setCurrentPage((prev) => Math.min(prev + 1, 1));
+    } else {
+      // scroll up
+      setCurrentPage((prev) => Math.max(prev - 1, 0));
+    }
+  };
+
+  // For mobile: swipe detection
+  useEffect(() => {
+    let touchStartY = 0;
+
+    const handleTouchStart = (e) => {
+      touchStartY = e.touches[0].clientY;
+    };
+
+    const handleTouchEnd = (e) => {
+      const touchEndY = e.changedTouches[0].clientY;
+      const delta = touchStartY - touchEndY;
+
+      if (Math.abs(delta) > 50) { // swipe threshold
+        if (delta > 0) setCurrentPage(1); // swipe up
+        else setCurrentPage(0); // swipe down
+      }
+    };
+
+    window.addEventListener("touchstart", handleTouchStart);
+    window.addEventListener("touchend", handleTouchEnd);
+
+    return () => {
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, []);
+
   return (
-    <>
+    <main className="flex justify-center items-center h-screen"
+     onWheel={handleScroll} >
       
-      {/* For TSX uncomment the commented types below */}
-      <div className="grid grid-flow-col gap-5 text-center auto-cols-max">
-        <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
-          <span className="countdown font-mono text-5xl">
-            <span style={{"--value":15} /* as React.CSSProperties */ } aria-live="polite" aria-label={counter}>15</span>
-          </span>
-          days
-        </div>
-        <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
-          <span className="countdown font-mono text-5xl">
-            <span style={{"--value":10} /* as React.CSSProperties */ } aria-live="polite" aria-label={counter}>10</span>
-          </span>
-          hours
-        </div>
-        <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
-          <span className="countdown font-mono text-5xl">
-            <span style={{"--value":24} /* as React.CSSProperties */ } aria-live="polite" aria-label={counter}>24</span>
-          </span>
-          min
-        </div>
-        <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
-          <span className="countdown font-mono text-5xl">
-            <span style={{"--value":59} /* as React.CSSProperties */ } aria-live="polite" aria-label={counter}>59</span>
-          </span>
-          sec
-        </div>
-      </div>
-    
-    </>
+      {currentPage === 0 && <CountDownSec />}
+      {currentPage === 1 && <SecondPage />}
+
+    </main>
   );
 }
+
 
 export default App;
