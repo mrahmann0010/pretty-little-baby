@@ -157,8 +157,8 @@ import ThirdPage from "./utils/ThirdPage";
 
 function App() {
   const [currentPage, setCurrentPage] = useState(0); // 0 = first page
-  // const targetDate = new Date("2025-09-04T22:04:00"); // unlock second page
-  const targetDate = new Date("2025-09-05T22:41:00");
+  const targetDate = new Date("2025-09-04T22:04:00"); // unlock second page
+  // const targetDate = new Date("2025-09-05T22:41:00");
 
 
   let scrollTimeout = null;
