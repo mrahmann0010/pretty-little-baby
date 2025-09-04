@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import ScrollHint from "./ScrollHint";
 // import "./index.css"; // Make sure your fonts are imported here
 
 const SecondPage = () => {
@@ -57,6 +58,8 @@ const SecondPage = () => {
           ></motion.div>
         ))}
       </div>
+
+      <ScrollHint />
     </section>
   );
 };

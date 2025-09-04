@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Confetti from "react-confetti";
 import CountDown from "./utils/CountDown";
+import ScrollHint from "./utils/ScrollHint";
 
 function FirstPageWithCountDown() {
 
@@ -40,6 +41,8 @@ function FirstPageWithCountDown() {
 
             <CountDown targetDate="2025-09-05T00:00:00" />
             <FirstPageBody />
+
+            <ScrollHint />
 
         </section>
     )
